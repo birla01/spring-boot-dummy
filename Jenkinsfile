@@ -7,11 +7,11 @@ node ('master') {
     echo "Build: ${BUILD}"
     stage ('Build Building container') {
         echo "Build: ${BUILD}"
-        sh "sudo docker build -t laszlocph/build-spring-boot-dummy:${BUILD} ."
+        sh "sudo docker build -t birla01/build-spring-boot-dummy:${BUILD} ."
     }
     stage ('Build in Container') {
         def CONTAINER_ID = sh (
-                script: "sudo docker run -d --network=host laszlocph/build-spring-boot-dummy:${BUILD}",
+                script: "sudo docker run -d --network=host birla01/build-spring-boot-dummy:${BUILD}",
                 returnStdout: true
         ).trim()
         echo "Container id: ${CONTAINER_ID}"
@@ -24,8 +24,8 @@ node ('master') {
 
     stage ('Build Container with latest Build') {
         dir('docker') {
-            sh "sudo docker build -t laszlocph/spring-boot-dummy:${BUILD} ."
-            sh "sudo docker push laszlocph/spring-boot-dummy:${BUILD}"
+            sh "sudo docker build -t birla01/spring-boot-dummy:${BUILD} ."
+            sh "sudo docker push birla01/spring-boot-dummy:${BUILD}"
         }
     }
 }
